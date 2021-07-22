@@ -115,14 +115,20 @@ class _LoginViewState extends State<LoginView> {
                   Spacer(
                     flex: 4,
                   ),
-                  Text(
-                    "Aplicação feita pela PROEX",
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.grey,
+                  TextButton(
+                    onPressed: () {},
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Aplicação feita pela PROEX",
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                    textAlign: TextAlign.center,
                   ),
                   Spacer(
                     flex: 1,

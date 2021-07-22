@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/login/login.view.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/features/recovery-password/recovery_password.view.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({Key? key}) : super(key: key);
@@ -12,7 +13,12 @@ class AppWidget extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: LoginView(),
+      initialRoute: "/",
+      routes: {
+        "/": (context) => LoginView(),
+        "/login": (context) => LoginView(),
+        "/recovery-password": (context) => RecoveyPasswordView(),
+      },
     );
   }
 }
