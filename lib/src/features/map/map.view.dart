@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/app/app.color.dart';
-import 'package:modulo1_deficientes_visuais_proex/src/features/login/login.controller.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/features/map/map.controller.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/button_submit.widget.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/form_field.widget.dart';
 import 'package:rx_notifier/rx_notifier.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({Key? key}) : super(key: key);
+class MapView extends StatefulWidget {
+  const MapView({Key? key}) : super(key: key);
 
   @override
-  _LoginViewState createState() => _LoginViewState();
+  _MapViewState createState() => _MapViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
-  LoginController controller = LoginController();
+class _MapViewState extends State<MapView> {
+  MapController controller = MapController();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -50,42 +50,31 @@ class _LoginViewState extends State<LoginView> {
                     flex: 2,
                   ),
                   FormFieldWidget(
-                    title: "E-mail",
-                    description: "Entre com seu email",
+                    title: "Localização",
+                    description: "Digite o endereço do prédio",
                     validator: (String value) {
                       if (value.isEmpty) return "Campo vazio";
                       if (value.length < 10) return "Campo muito pequeno";
-                      if (!value.contains("@")) return "Falta @";
-                      if (!value.contains("@")) return "Falta .";
                       return null;
                     },
-                    controller: controller.emailEditingController,
+                    controller: controller.mapEditingController,
                     onChanged: (value) {},
                     icon: SizedBox(),
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.streetAddress,
                   ),
                   RxBuilder(
                     builder: (context) {
                       return FormFieldWidget(
-                        title: "Senha",
-                        description: "Senha do sistema",
+                        title: "Coordenada Geográfica",
+                        description: "Coordenada geográfica do prédio",
                         validator: (value) {
                           if (value.isEmpty) return "Campo vazio";
                           return null;
                         },
-                        controller: controller.passwordEditingController,
+                        controller: controller.geoEditingController,
                         onChanged: (value) {},
-                        keyboardType: TextInputType.text,
-                        obscure: !controller.getIsVisible,
-                        icon: IconButton(
-                          icon: !controller.getIsVisible == true
-                              ? Icon(Icons.visibility)
-                              : Icon(Icons.visibility_off),
-                          onPressed: () {
-                            controller.isVisible.value =
-                                !controller.getIsVisible;
-                          },
-                        ),
+                        icon: SizedBox(),
+                        keyboardType: TextInputType.numberWithOptions(),
                       );
                     },
                   ),
@@ -101,9 +90,9 @@ class _LoginViewState extends State<LoginView> {
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   controller.isLoading.value = true;
-                                  print(controller.emailEditingController.text);
+                                  print(controller.mapEditingController.text);
                                   print(controller
-                                      .passwordEditingController.text);
+                                      .geoEditingController.text);
                                   Future.delayed(Duration(seconds: 3)).then(
                                       (value) =>
                                           controller.isLoading.value = false);
