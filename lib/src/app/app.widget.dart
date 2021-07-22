@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/features/about/about.view.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/create-account/create_account.view.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/edit-account/edit_account.view.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/login/login.view.dart';
@@ -15,7 +16,7 @@ class AppWidget extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      initialRoute: "/edit-account",
+      initialRoute: "/about",
       routes: {
         "/": (context) => LoginView(),
         "/login": (context) => LoginView(),
@@ -24,6 +25,7 @@ class AppWidget extends StatelessWidget {
         "/edit-account": (context) => EditAccountView(
               id: "uid",
             ),
+        "/about": (context) => AboutView(),
       },
     );
   }
