@@ -22,9 +22,10 @@ class AppWidget extends StatelessWidget {
         "/login": (context) => LoginView(),
         "/recovery-password": (context) => RecoveyPasswordView(),
         "/create-account": (context) => CreateAccountView(),
-        "/edit-account": (context) => EditAccountView(
-              id: "uid",
-            ),
+        "/edit-account": (context) {
+          final args = ModalRoute.of(context)!.settings.arguments as Map;
+          return EditAccountView(id: args["id"] ?? "uid");
+        },
         "/about": (context) => AboutView(),
       },
     );
