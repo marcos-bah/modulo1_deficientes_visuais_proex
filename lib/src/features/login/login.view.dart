@@ -116,11 +116,13 @@ class _LoginViewState extends State<LoginView> {
                     flex: 4,
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushNamed("/recovery-password");
+                    },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        "Aplicação feita pela PROEX",
+                        "Recuperar Senha",
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
