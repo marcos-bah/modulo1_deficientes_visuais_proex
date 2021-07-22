@@ -61,7 +61,7 @@ class _AboutViewState extends State<AboutView> {
                   "Daniel Henrique - Desenvolvedor",
                 ),
                 Text(
-                  "Ygor - Desenvolvedo",
+                  "Ygor - Desenvolvedor",
                 ),
                 Text(
                   "Marcos - Desenvolvedor",
