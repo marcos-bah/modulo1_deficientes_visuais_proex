@@ -54,7 +54,6 @@ class _MapViewState extends State<MapView> {
                     description: "Digite o endereço do prédio",
                     validator: (String value) {
                       if (value.isEmpty) return "Campo vazio";
-                      if (value.length < 10) return "Campo muito pequeno";
                       return null;
                     },
                     controller: controller.mapEditingController,
@@ -75,6 +74,22 @@ class _MapViewState extends State<MapView> {
                         onChanged: (value) {},
                         icon: SizedBox(),
                         keyboardType: TextInputType.numberWithOptions(),
+                      );
+                    },
+                  ),
+                  RxBuilder(
+                    builder: (context) {
+                      return FormFieldWidget(
+                        title: "Descrição",
+                        description: "Descrição do prédio",
+                        validator: (value) {
+                          if (value.isEmpty) return "Campo vazio";
+                          return null;
+                        },
+                        controller: controller.geoEditingController,
+                        onChanged: (value) {},
+                        icon: SizedBox(),
+                        keyboardType: TextInputType.multiline,
                       );
                     },
                   ),
