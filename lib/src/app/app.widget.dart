@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/create-account/create_account.view.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/features/edit-account/edit_account.view.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/login/login.view.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/recovery-password/recovery_password.view.dart';
 
@@ -14,12 +15,15 @@ class AppWidget extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      initialRoute: "/create-account",
+      initialRoute: "/edit-account",
       routes: {
         "/": (context) => LoginView(),
         "/login": (context) => LoginView(),
         "/recovery-password": (context) => RecoveyPasswordView(),
         "/create-account": (context) => CreateAccountView(),
+        "/edit-account": (context) => EditAccountView(
+              id: "uid",
+            ),
       },
     );
   }
