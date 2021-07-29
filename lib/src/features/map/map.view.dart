@@ -86,7 +86,7 @@ class _MapViewState extends State<MapView> {
                           if (value.isEmpty) return "Campo vazio";
                           return null;
                         },
-                        controller: controller.geoEditingController,
+                        controller: controller.descriptionEditingController,
                         onChanged: (value) {},
                         icon: SizedBox(),
                         keyboardType: TextInputType.multiline,
