@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/app/app.color.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/recovery-password/recovery_password.controller.dart';
-import 'package:modulo1_deficientes_visuais_proex/src/features/shared/button_submit.widget.dart';
-import 'package:modulo1_deficientes_visuais_proex/src/features/shared/form_field.widget.dart';
-import 'package:rx_notifier/rx_notifier.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
