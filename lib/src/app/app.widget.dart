@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/features/home/home.view.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/login/login.view.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/recovery-password/recovery_password.view.dart';
 
@@ -18,6 +19,7 @@ class AppWidget extends StatelessWidget {
         "/": (context) => LoginView(),
         "/login": (context) => LoginView(),
         "/recovery-password": (context) => RecoveyPasswordView(),
+        "/home": (context) => HomeView(),
       },
     );
   }
