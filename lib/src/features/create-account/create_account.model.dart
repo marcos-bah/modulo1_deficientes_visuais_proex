@@ -4,7 +4,11 @@ class CreateAccountModel {
   late String password;
   late String permission;
 
-  CreateAccountModel(this.name, this.email, this.password, this.permission);
+  CreateAccountModel(
+      {required this.name,
+      required this.email,
+      required this.password,
+      required this.permission});
 
   CreateAccountModel.fromJson(Map<String, dynamic> json) {
     this.name = json["name"].toString();

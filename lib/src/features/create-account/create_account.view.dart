@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/app/app.color.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/create-account/create_account.controller.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/features/create-account/create_account.model.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/button_submit.widget.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/dropdown_button.widget.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/form_field.widget.dart';
@@ -15,6 +16,7 @@ class CreateAccountView extends StatefulWidget {
 
 class _CreateAccountViewState extends State<CreateAccountView> {
   CreateAccountController controller = CreateAccountController();
+
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -89,9 +91,18 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   controller.isLoading.value = true;
+                                  CreateAccountModel model = CreateAccountModel(
+                                    email:
+                                        controller.emailEditingController.text,
+                                    name: controller.nameEditingController.text,
+                                    permission: controller.permission.value,
+                                    password: controller
+                                        .passwordEditingController.text,
+                                  );
                                   Future.delayed(Duration(seconds: 3)).then(
                                       (value) =>
                                           controller.isLoading.value = false);
+                                  print(model.toJson());
                                 }
                               },
                             );
