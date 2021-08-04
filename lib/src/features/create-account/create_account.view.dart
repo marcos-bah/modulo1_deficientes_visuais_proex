@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/app/app.color.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/create-account/create_account.controller.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/button_submit.widget.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/features/shared/dropdown_button.widget.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/form_field.widget.dart';
 import 'package:rx_notifier/rx_notifier.dart';
 
@@ -64,6 +65,17 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                     onChanged: (value) {},
                     icon: SizedBox(),
                     keyboardType: TextInputType.emailAddress,
+                  ),
+                  RxBuilder(
+                    builder: (context) {
+                      return DropdownButtonWidget(
+                        title: "Permissão",
+                        onChanged: (value) {
+                          controller.permission.value = value;
+                        },
+                        value: controller.getPermission,
+                      );
+                    },
                   ),
                   Spacer(
                     flex: 1,

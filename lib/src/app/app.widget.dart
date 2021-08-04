@@ -16,9 +16,9 @@ class AppWidget extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      initialRoute: "/about",
+      initialRoute: "/create-account",
       routes: {
-        "/": (context) => LoginView(),
+        "/": (context) => CreateAccountView(),
         "/login": (context) => LoginView(),
         "/recovery-password": (context) => RecoveyPasswordView(),
         "/create-account": (context) => CreateAccountView(),
