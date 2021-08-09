@@ -91,14 +91,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   controller.isLoading.value = true;
-                                  UserModel model = UserModel(
-                                    email:
-                                        controller.emailEditingController.text,
-                                    name: controller.nameEditingController.text,
-                                    permission: controller.permission.value,
-                                    password: controller
-                                        .passwordEditingController.text,
-                                  );
+                                  UserModel model = UserModel();
                                   Future.delayed(Duration(seconds: 3)).then(
                                       (value) =>
                                           controller.isLoading.value = false);
