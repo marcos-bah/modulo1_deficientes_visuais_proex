@@ -6,8 +6,9 @@ import 'package:modulo1_deficientes_visuais_proex/src/features/shared/form_field
 import 'package:rx_notifier/rx_notifier.dart';
 
 class EditAccountView extends StatefulWidget {
-  final String id;
-  const EditAccountView({Key? key, required this.id}) : super(key: key);
+  const EditAccountView({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _EditAccountViewState createState() => _EditAccountViewState();
@@ -19,7 +20,7 @@ class _EditAccountViewState extends State<EditAccountView> {
 
   @override
   void initState() {
-    controller = EditAccountController(id: widget.id);
+    controller = EditAccountController();
     super.initState();
   }
 
@@ -84,6 +85,56 @@ class _EditAccountViewState extends State<EditAccountView> {
                     onChanged: (value) {},
                     icon: SizedBox(),
                     keyboardType: TextInputType.emailAddress,
+                  ),
+                  RxBuilder(
+                    builder: (context) {
+                      return FormFieldWidget(
+                        title: "Senha Atual",
+                        description: "Sua senha atual do sistema",
+                        validator: (value) {
+                          if (value.isEmpty) return "Campo vazio";
+                          return null;
+                        },
+                        controller: controller.passwordEditingController,
+                        onChanged: (value) {},
+                        keyboardType: TextInputType.text,
+                        obscure: !controller.getIsVisible,
+                        icon: IconButton(
+                          icon: !controller.getIsVisible == true
+                              ? Icon(Icons.visibility)
+                              : Icon(Icons.visibility_off),
+                          onPressed: () {
+                            controller.isVisible.value =
+                                !controller.getIsVisible;
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                  RxBuilder(
+                    builder: (context) {
+                      return FormFieldWidget(
+                        title: "Nova Senha",
+                        description: "Sua nova senha",
+                        validator: (value) {
+                          if (value.isEmpty) return "Campo vazio";
+                          return null;
+                        },
+                        controller: controller.newPasswordEditingController,
+                        onChanged: (value) {},
+                        keyboardType: TextInputType.text,
+                        obscure: !controller.getIsVisible,
+                        icon: IconButton(
+                          icon: !controller.getIsVisible == true
+                              ? Icon(Icons.visibility)
+                              : Icon(Icons.visibility_off),
+                          onPressed: () {
+                            controller.isVisible.value =
+                                !controller.getIsVisible;
+                          },
+                        ),
+                      );
+                    },
                   ),
                   Spacer(
                     flex: 1,

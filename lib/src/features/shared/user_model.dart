@@ -1,16 +1,16 @@
-class CreateAccountModel {
+class UserModel {
   late String name;
   late String email;
   late String password;
   late String permission;
 
-  CreateAccountModel(
+  UserModel(
       {required this.name,
       required this.email,
       required this.password,
       required this.permission});
 
-  CreateAccountModel.fromJson(Map<String, dynamic> json) {
+  UserModel.fromJson(Map<String, dynamic> json) {
     this.name = json["name"].toString();
     this.email = json["email"].toString();
     this.password = json["password"].toString();

@@ -16,15 +16,14 @@ class AppWidget extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      initialRoute: "/create-account",
+      initialRoute: "/edit-account",
       routes: {
         "/": (context) => CreateAccountView(),
         "/login": (context) => LoginView(),
         "/recovery-password": (context) => RecoveyPasswordView(),
         "/create-account": (context) => CreateAccountView(),
         "/edit-account": (context) {
-          final args = ModalRoute.of(context)!.settings.arguments as Map;
-          return EditAccountView(id: args["id"] ?? "uid");
+          return EditAccountView();
         },
         "/about": (context) => AboutView(),
       },

@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:modulo1_deficientes_visuais_proex/src/features/create-account/create_account.model.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/features/shared/user_model.dart';
 
 class CreateAccountRepository {
   Dio dio = new Dio();
@@ -7,7 +7,7 @@ class CreateAccountRepository {
   static final String path = 'localhost';
   static final String query = '/api/accounts';
 
-  Future<String> createAccount(CreateAccountModel userModel) async {
+  Future<String> createAccount(UserModel userModel) async {
     try {
       return await dio
           .post(
