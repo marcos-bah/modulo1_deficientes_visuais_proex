@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rx_notifier/rx_notifier.dart';
 
 class EditAccountController {
-  EditAccountController({required String id}) {
+  EditAccountController() {
     //function get data from database
     Map<String, dynamic> data = {
       "name": "Marcos Barbosa",
@@ -13,12 +13,18 @@ class EditAccountController {
   }
   TextEditingController emailEditingController = TextEditingController();
   TextEditingController nameEditingController = TextEditingController();
+  TextEditingController passwordEditingController = TextEditingController();
+  TextEditingController newPasswordEditingController = TextEditingController();
 
   RxNotifier<bool> isLoading = RxNotifier<bool>(false);
   bool get getIsLoading => isLoading.value;
+  RxNotifier<bool> isVisible = RxNotifier<bool>(false);
+  bool get getIsVisible => isVisible.value;
 
   void clear() {
     emailEditingController.clear();
     nameEditingController.clear();
+    passwordEditingController.clear();
+    newPasswordEditingController.clear();
   }
 }

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/app/app.color.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/create-account/create_account.controller.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/button_submit.widget.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/features/shared/dropdown_button.widget.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/form_field.widget.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/features/shared/user_model.dart';
 import 'package:rx_notifier/rx_notifier.dart';
 
 class CreateAccountView extends StatefulWidget {
@@ -14,6 +16,7 @@ class CreateAccountView extends StatefulWidget {
 
 class _CreateAccountViewState extends State<CreateAccountView> {
   CreateAccountController controller = CreateAccountController();
+
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -65,6 +68,17 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                     icon: SizedBox(),
                     keyboardType: TextInputType.emailAddress,
                   ),
+                  RxBuilder(
+                    builder: (context) {
+                      return DropdownButtonWidget(
+                        title: "Permissão",
+                        onChanged: (value) {
+                          controller.permission.value = value;
+                        },
+                        value: controller.getPermission,
+                      );
+                    },
+                  ),
                   Spacer(
                     flex: 1,
                   ),
@@ -77,9 +91,11 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   controller.isLoading.value = true;
+                                  UserModel model = UserModel();
                                   Future.delayed(Duration(seconds: 3)).then(
                                       (value) =>
                                           controller.isLoading.value = false);
+                                  print(model.toJson());
                                 }
                               },
                             );
