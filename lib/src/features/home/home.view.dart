@@ -45,9 +45,9 @@ class HomeView extends StatelessWidget {
                 Card(
                   child: ListTile(
                     leading: Icon(Icons.manage_accounts),
-                    title: Text("Inserir usuário"),
+                    title: Text("Criar novo usuário"),
                     onTap: () {
-                      Navigator.of(context).pushNamed("/insert-user");
+                      Navigator.of(context).pushNamed("/create-account");
                     },
                   ),
                 ),
