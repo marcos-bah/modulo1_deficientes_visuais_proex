@@ -3,11 +3,14 @@ import 'package:modulo1_deficientes_visuais_proex/src/app/app.color.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/edit-account/edit_account.controller.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/button_submit.widget.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/form_field.widget.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/features/shared/modal_delete.widget.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/features/shared/user_model.dart';
 import 'package:rx_notifier/rx_notifier.dart';
 
 class EditAccountView extends StatefulWidget {
-  final String id;
-  const EditAccountView({Key? key, required this.id}) : super(key: key);
+  const EditAccountView({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _EditAccountViewState createState() => _EditAccountViewState();
@@ -16,10 +19,12 @@ class EditAccountView extends StatefulWidget {
 class _EditAccountViewState extends State<EditAccountView> {
   late EditAccountController controller;
   final _formKey = GlobalKey<FormState>();
+  late UserModel userModel;
 
   @override
   void initState() {
-    controller = EditAccountController(id: widget.id);
+    controller = EditAccountController();
+    userModel = UserModel();
     super.initState();
   }
 
@@ -85,6 +90,56 @@ class _EditAccountViewState extends State<EditAccountView> {
                     icon: SizedBox(),
                     keyboardType: TextInputType.emailAddress,
                   ),
+                  RxBuilder(
+                    builder: (context) {
+                      return FormFieldWidget(
+                        title: "Senha Atual",
+                        description: "Sua senha atual do sistema",
+                        validator: (value) {
+                          if (value.isEmpty) return "Campo vazio";
+                          return null;
+                        },
+                        controller: controller.passwordEditingController,
+                        onChanged: (value) {},
+                        keyboardType: TextInputType.text,
+                        obscure: !controller.getIsVisible,
+                        icon: IconButton(
+                          icon: !controller.getIsVisible == true
+                              ? Icon(Icons.visibility)
+                              : Icon(Icons.visibility_off),
+                          onPressed: () {
+                            controller.isVisible.value =
+                                !controller.getIsVisible;
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                  RxBuilder(
+                    builder: (context) {
+                      return FormFieldWidget(
+                        title: "Nova Senha",
+                        description: "Sua nova senha",
+                        validator: (value) {
+                          if (value.isEmpty) return "Campo vazio";
+                          return null;
+                        },
+                        controller: controller.newPasswordEditingController,
+                        onChanged: (value) {},
+                        keyboardType: TextInputType.text,
+                        obscure: !controller.getIsVisible,
+                        icon: IconButton(
+                          icon: !controller.getIsVisible == true
+                              ? Icon(Icons.visibility)
+                              : Icon(Icons.visibility_off),
+                          onPressed: () {
+                            controller.isVisible.value =
+                                !controller.getIsVisible;
+                          },
+                        ),
+                      );
+                    },
+                  ),
                   Spacer(
                     flex: 1,
                   ),
@@ -104,6 +159,26 @@ class _EditAccountViewState extends State<EditAccountView> {
                               },
                             );
                     },
+                  ),
+                  Spacer(
+                    flex: 1,
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      userModel.uid = "s";
+                      showDialog(
+                        context: context,
+                        builder: (context) => ModalDeleteWidget(
+                          uid: userModel.uid,
+                        ),
+                      );
+                    },
+                    child: Text(
+                      "Excluir conta",
+                      style: TextStyle(
+                        color: Colors.redAccent,
+                      ),
+                    ),
                   ),
                   Spacer(
                     flex: 5,
