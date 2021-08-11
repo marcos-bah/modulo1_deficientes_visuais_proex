@@ -24,12 +24,7 @@ class AppWidget extends StatelessWidget {
         "/recovery-password": (context) => RecoveyPasswordView(),
         "/home": (context) => HomeView(),
         "/create-account": (context) => CreateAccountView(),
-        "/edit-account": (context) => EditAccountView(
-              id: "uid",
-            ),
-        "/edit-account": (context) {
-          return EditAccountView();
-        },
+        "/edit-account": (context) => EditAccountView(),
         "/about": (context) => AboutView(),
       },
     );
