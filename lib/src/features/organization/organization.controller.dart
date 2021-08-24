@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rx_notifier/rx_notifier.dart';
 
-class BuilderController {
+class OrganizationController {
   var id = RxNotifier<String>("");
   var name = RxNotifier<String>("");
   var description = RxNotifier<String>("");
