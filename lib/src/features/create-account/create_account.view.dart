@@ -4,7 +4,6 @@ import 'package:modulo1_deficientes_visuais_proex/src/features/create-account/cr
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/button_submit.widget.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/dropdown_button.widget.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/form_field.widget.dart';
-import 'package:modulo1_deficientes_visuais_proex/src/features/shared/user.model.dart';
 import 'package:rx_notifier/rx_notifier.dart';
 
 class CreateAccountView extends StatefulWidget {
@@ -91,11 +90,10 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   controller.isLoading.value = true;
-                                  UserModel model = UserModel();
+
                                   Future.delayed(Duration(seconds: 3)).then(
                                       (value) =>
                                           controller.isLoading.value = false);
-                                  print(model.toJson());
                                 }
                               },
                             );

@@ -3,7 +3,6 @@ import 'package:modulo1_deficientes_visuais_proex/src/app/app.color.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/edit-account/edit_account.controller.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/button_submit.widget.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/form_field.widget.dart';
-import 'package:modulo1_deficientes_visuais_proex/src/features/shared/modal_delete.widget.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/user.model.dart';
 import 'package:rx_notifier/rx_notifier.dart';
 
@@ -24,7 +23,7 @@ class _EditAccountViewState extends State<EditAccountView> {
   @override
   void initState() {
     controller = EditAccountController();
-    userModel = UserModel();
+
     super.initState();
   }
 
@@ -164,15 +163,7 @@ class _EditAccountViewState extends State<EditAccountView> {
                     flex: 1,
                   ),
                   TextButton(
-                    onPressed: () {
-                      userModel.uid = "s";
-                      showDialog(
-                        context: context,
-                        builder: (context) => ModalDeleteWidget(
-                          uid: userModel.uid,
-                        ),
-                      );
-                    },
+                    onPressed: () {},
                     child: Text(
                       "Excluir conta",
                       style: TextStyle(

@@ -1,25 +1,25 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/app/app.repository.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/user.model.dart';
 
-class Repository {
+class Repository extends AppRepository {
   Dio dio = new Dio();
 
-  static final String pathOrigin = 'localhost';
-  static final String queryCreate = '/api/create';
-  static final String queryEdit = '/api/edit';
-  static final String queryGet = '/api/get';
-  static final String queryDelete = '/api/delete';
-
-  Future<String> createAccount(UserModel userModel) async {
+  Future<String> login({required UserModel userModel}) async {
     try {
       return await dio
           .post(
-        pathOrigin + queryCreate,
+        AppRepository.path + AppRepository.queryLogin,
         data: userModel.toJson(),
       )
           .then(
         (value) {
-          return value.toString();
+          if (value.statusCode == 200) {
+            return jsonEncode(value.data);
+          }
+          return jsonEncode(value.data);
         },
       );
     } on DioError catch (e) {
@@ -27,6 +27,7 @@ class Repository {
         if (e.response!.statusCode == 404) {
           return "API Offline";
         }
+
         return e.response!.statusCode.toString();
       }
       return e.toString();
@@ -39,7 +40,7 @@ class Repository {
     try {
       return await dio
           .post(
-        pathOrigin + queryEdit,
+        "",
         data: userModel.toJson(),
       )
           .then(
@@ -64,7 +65,7 @@ class Repository {
     try {
       return await dio
           .post(
-        pathOrigin + queryDelete + "?id=" + uid,
+        "" + "?id=" + uid,
       )
           .then(
         (value) {

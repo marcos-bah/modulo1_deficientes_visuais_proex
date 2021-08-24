@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/app/app.color.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/login/login.controller.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/button_submit.widget.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/form_field.widget.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/features/shared/user.model.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/features/shared/user.repository.dart';
 import 'package:rx_notifier/rx_notifier.dart';
 
 class LoginView extends StatefulWidget {
@@ -14,6 +18,7 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   LoginController controller = LoginController();
+  Repository repository = Repository();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -101,12 +106,20 @@ class _LoginViewState extends State<LoginView> {
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   controller.isLoading.value = true;
-                                  print(controller.emailEditingController.text);
-                                  print(controller
-                                      .passwordEditingController.text);
-                                  Future.delayed(Duration(seconds: 3)).then(
-                                      (value) =>
-                                          controller.isLoading.value = false);
+                                  UserModel user = UserModel(
+                                      controller.emailEditingController.text,
+                                      controller
+                                          .passwordEditingController.text);
+                                  repository.login(userModel: user).then((res) {
+                                    Map resJson = jsonDecode(res.toString());
+                                    print(resJson);
+                                    if (resJson["token"] != null) {
+                                      Navigator.pushNamed(context, "/home");
+                                    } else {
+                                      print(resJson["message"].toString());
+                                    }
+                                  }).whenComplete(
+                                      () => controller.isLoading.value = false);
                                 }
                               },
                             );
