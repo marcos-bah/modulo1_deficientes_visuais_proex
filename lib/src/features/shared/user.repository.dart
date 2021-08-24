@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:modulo1_deficientes_visuais_proex/src/features/shared/user_model.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/features/shared/user.model.dart';
 
 class Repository {
   Dio dio = new Dio();

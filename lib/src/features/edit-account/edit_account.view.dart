@@ -4,7 +4,7 @@ import 'package:modulo1_deficientes_visuais_proex/src/features/edit-account/edit
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/button_submit.widget.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/form_field.widget.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/modal_delete.widget.dart';
-import 'package:modulo1_deficientes_visuais_proex/src/features/shared/user_model.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/features/shared/user.model.dart';
 import 'package:rx_notifier/rx_notifier.dart';
 
 class EditAccountView extends StatefulWidget {

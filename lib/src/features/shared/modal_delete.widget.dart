@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'repository.dart';
+import 'user.repository.dart';
 
 class ModalDeleteWidget extends StatelessWidget {
   final String uid;
