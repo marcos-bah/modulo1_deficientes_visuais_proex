@@ -9,7 +9,7 @@ class FormFieldWidget extends StatefulWidget {
   final TextInputType keyboardType;
   final TextEditingController controller;
   final bool obscure;
-  final int maxLines;
+  final int? maxLines;
   final AutovalidateMode auto;
   final Widget icon;
 

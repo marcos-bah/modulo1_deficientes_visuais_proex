@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/app/app.color.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/builder/builder.controller.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/button_submit.widget.dart';
-import 'package:modulo1_deficientes_visuais_proex/src/features/shared/dropdown_button.widget.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/form_field.widget.dart';
 import 'package:rx_notifier/rx_notifier.dart';
 
@@ -22,7 +21,7 @@ class _BuilderViewState extends State<BuilderView> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Criando Nova Conta"),
+        title: Text("Criando Novo Prédio"),
         centerTitle: true,
         backgroundColor: AppColors.primary,
       ),
@@ -40,17 +39,41 @@ class _BuilderViewState extends State<BuilderView> {
                     flex: 5,
                   ),
                   FormFieldWidget(
-                    title: "Nome",
+                    title: "Nome do Prédio",
                     description: "Entre com o nome",
-                    validator: (String value) {
-                      if (value.isEmpty) return "Campo vazio";
-                      if (value.length < 6) return "Campo muito pequeno";
-                      return null;
-                    },
+                    validator: controller.validator,
                     controller: controller.nameEditingController,
                     onChanged: controller.setName,
                     icon: SizedBox(),
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.name,
+                  ),
+                  FormFieldWidget(
+                    title: "Latitude do Ponto Referencia",
+                    description: "Entre com a latitude do ponto referencia",
+                    validator: controller.validator,
+                    controller: controller.latEditingController,
+                    onChanged: controller.setLat,
+                    icon: SizedBox(),
+                    keyboardType: TextInputType.number,
+                  ),
+                  FormFieldWidget(
+                    title: "Longitude do Ponto Referencia",
+                    description: "Entre com a longitude do ponto referencia",
+                    validator: controller.validator,
+                    controller: controller.lonEditingController,
+                    onChanged: controller.setLon,
+                    icon: SizedBox(),
+                    keyboardType: TextInputType.number,
+                  ),
+                  FormFieldWidget(
+                    title: "Descrição do Prédio",
+                    description: "Entre com a descrição do prédio",
+                    validator: controller.validator,
+                    controller: controller.descriptionEditingController,
+                    onChanged: controller.setDescription,
+                    icon: SizedBox(),
+                    keyboardType: TextInputType.multiline,
+                    maxLines: null,
                   ),
                   Spacer(
                     flex: 1,
@@ -60,24 +83,12 @@ class _BuilderViewState extends State<BuilderView> {
                       return controller.getIsLoading
                           ? CircularProgressIndicator()
                           : ButtonSubmitWidget(
-                              textButton: "Criar conta",
+                              textButton: "Criar Prédio",
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {}
                               },
                             );
                     },
-                  ),
-                  Spacer(
-                    flex: 1,
-                  ),
-                  Text(
-                    "A senha padrão será: proex123",
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.grey,
-                    ),
-                    textAlign: TextAlign.center,
                   ),
                   Spacer(
                     flex: 5,

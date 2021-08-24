@@ -42,4 +42,10 @@ class BuilderController {
   TextEditingController latEditingController = TextEditingController();
   TextEditingController lonEditingController = TextEditingController();
   TextEditingController descriptionEditingController = TextEditingController();
+
+  String? validator(String value) {
+    if (value.isEmpty) return "Campo vazio";
+    if (value.length < 6) return "Campo muito pequeno";
+    return null;
+  }
 }
