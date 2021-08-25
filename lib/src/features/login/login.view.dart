@@ -5,6 +5,7 @@ import 'package:modulo1_deficientes_visuais_proex/src/app/app.color.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/login/login.controller.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/button_submit.widget.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/form_field.widget.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/features/shared/snackbar.message.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/user.model.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/user.repository.dart';
 import 'package:rx_notifier/rx_notifier.dart';
@@ -112,11 +113,16 @@ class _LoginViewState extends State<LoginView> {
                                           .passwordEditingController.text);
                                   repository.login(userModel: user).then((res) {
                                     Map resJson = jsonDecode(res.toString());
-                                    print(resJson);
+
                                     if (resJson["token"] != null) {
+                                      showMessageSucess(
+                                          context: context,
+                                          text: "Sucesso ao logar");
                                       Navigator.pushNamed(context, "/home");
                                     } else {
-                                      print(resJson["message"].toString());
+                                      showMessageError(
+                                          context: context,
+                                          text: resJson["message"].toString());
                                     }
                                   }).whenComplete(
                                       () => controller.isLoading.value = false);

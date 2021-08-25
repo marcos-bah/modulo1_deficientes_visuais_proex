@@ -25,14 +25,70 @@ class Repository extends AppRepository {
     } on DioError catch (e) {
       if (e.response != null) {
         if (e.response!.statusCode == 404) {
-          return "API Offline";
+          return jsonEncode({"code": 404, "message": "API Offline"});
         }
 
-        return e.response!.statusCode.toString();
+        return jsonEncode(e.response);
       }
-      return e.toString();
+      return jsonEncode(e.response);
     } catch (e) {
-      return e.toString();
+      return jsonEncode({"code": 5000, "message": "Error Interno"});
+    }
+  }
+
+  Future<String> getUser({required String uid}) async {
+    try {
+      return await dio
+          .post(
+        AppRepository.path + AppRepository.queryUser + "/" + uid,
+      )
+          .then(
+        (value) {
+          if (value.statusCode == 200) {
+            return jsonEncode(value.data);
+          }
+          return jsonEncode(value.data);
+        },
+      );
+    } on DioError catch (e) {
+      if (e.response != null) {
+        if (e.response!.statusCode == 404) {
+          return jsonEncode({"code": 404, "message": "API Offline"});
+        }
+
+        return jsonEncode(e.response);
+      }
+      return jsonEncode(e.response);
+    } catch (e) {
+      return jsonEncode({"code": 5000, "message": "Error Interno"});
+    }
+  }
+
+  Future<String> getAllUser() async {
+    try {
+      return await dio
+          .post(
+        AppRepository.path + AppRepository.queryUser,
+      )
+          .then(
+        (value) {
+          if (value.statusCode == 200) {
+            return jsonEncode(value.data);
+          }
+          return jsonEncode(value.data);
+        },
+      );
+    } on DioError catch (e) {
+      if (e.response != null) {
+        if (e.response!.statusCode == 404) {
+          return jsonEncode({"code": 404, "message": "API Offline"});
+        }
+
+        return jsonEncode(e.response);
+      }
+      return jsonEncode(e.response);
+    } catch (e) {
+      return jsonEncode({"code": 5000, "message": "Error Interno"});
     }
   }
 
@@ -40,48 +96,56 @@ class Repository extends AppRepository {
     try {
       return await dio
           .post(
-        "",
+        AppRepository.path + AppRepository.queryLogin,
         data: userModel.toJson(),
       )
           .then(
         (value) {
-          return value.toString();
+          if (value.statusCode == 200) {
+            return jsonEncode(value.data);
+          }
+          return jsonEncode(value.data);
         },
       );
     } on DioError catch (e) {
       if (e.response != null) {
         if (e.response!.statusCode == 404) {
-          return "API Offline";
+          return jsonEncode({"code": 404, "message": "API Offline"});
         }
-        return e.response!.statusCode.toString();
+
+        return jsonEncode(e.response);
       }
-      return e.toString();
+      return jsonEncode(e.response);
     } catch (e) {
-      return e.toString();
+      return jsonEncode({"code": 5000, "message": "Error Interno"});
     }
   }
 
   Future<String> deleteAccount(String uid) async {
     try {
       return await dio
-          .post(
-        "" + "?id=" + uid,
+          .delete(
+        AppRepository.path + AppRepository.queryUser + "/" + uid,
       )
           .then(
         (value) {
-          return value.toString();
+          if (value.statusCode == 200) {
+            return jsonEncode(value.data);
+          }
+          return jsonEncode(value.data);
         },
       );
     } on DioError catch (e) {
       if (e.response != null) {
         if (e.response!.statusCode == 404) {
-          return "API Offline";
+          return jsonEncode({"code": 404, "message": "API Offline"});
         }
-        return e.response!.statusCode.toString();
+
+        return jsonEncode(e.response);
       }
-      return e.toString();
+      return jsonEncode(e.response);
     } catch (e) {
-      return e.toString();
+      return jsonEncode({"code": 5000, "message": "Error Interno"});
     }
   }
 }
