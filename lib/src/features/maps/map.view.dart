@@ -21,7 +21,7 @@ class _MapViewState extends State<MapView> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Criando Novo Prédio"),
+        title: Text("Criando Novo Mapa"),
         centerTitle: true,
         backgroundColor: AppColors.primary,
       ),
@@ -57,8 +57,11 @@ class _MapViewState extends State<MapView> {
                     keyboardType: TextInputType.text,
                   ),
                   ButtonSubmitWidget(
-                    textButton: "Enviar Mapa",
-                    onPressed: () {},
+                    textButton: "Escolher Mapa",
+                    onPressed: () {
+                      controller.uploadSource();
+                    },
+                    inversed: true,
                   ),
                   Spacer(
                     flex: 1,
