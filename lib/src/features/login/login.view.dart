@@ -111,20 +111,23 @@ class _LoginViewState extends State<LoginView> {
                                       controller.emailEditingController.text,
                                       controller
                                           .passwordEditingController.text);
-                                  repository.login(userModel: user).then((res) {
-                                    Map resJson = jsonDecode(res.toString());
+                                  repository.login(userModel: user).then(
+                                    (res) {
+                                      Map resJson = jsonDecode(res.toString());
 
-                                    if (resJson["token"] != null) {
-                                      showMessageSucess(
-                                          context: context,
-                                          text: "Sucesso ao logar");
-                                      Navigator.pushNamed(context, "/home");
-                                    } else {
-                                      showMessageError(
-                                          context: context,
-                                          text: resJson["message"].toString());
-                                    }
-                                  }).whenComplete(
+                                      if (resJson["token"] != null) {
+                                        showMessageSucess(
+                                            context: context,
+                                            text: "Sucesso ao logar");
+                                        Navigator.pushNamed(context, "/home");
+                                      } else {
+                                        showMessageError(
+                                            context: context,
+                                            text:
+                                                resJson["message"].toString());
+                                      }
+                                    },
+                                  ).whenComplete(
                                       () => controller.isLoading.value = false);
                                 }
                               },
