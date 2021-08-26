@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/app/app.color.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/features/maps/map.controller.dart';
 
 class ViewMapView extends StatefulWidget {
   const ViewMapView({Key? key}) : super(key: key);
@@ -9,6 +10,7 @@ class ViewMapView extends StatefulWidget {
 }
 
 class _ViewMapViewState extends State<ViewMapView> {
+  MapController controller = MapController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -54,7 +56,9 @@ class _ViewMapViewState extends State<ViewMapView> {
                         ),
                       ),
                       Text(
-                        "---",
+                        controller.getName.isNotEmpty
+                            ? controller.getName
+                            : "----",
                         style: TextStyle(
                           fontWeight: FontWeight.normal,
                           fontSize: 14,
@@ -71,7 +75,9 @@ class _ViewMapViewState extends State<ViewMapView> {
                         ),
                       ),
                       Text(
-                        "---",
+                        controller.getDescription.isNotEmpty
+                            ? controller.getDescription
+                            : "----",
                         style: TextStyle(
                           fontWeight: FontWeight.normal,
                           fontSize: 14,

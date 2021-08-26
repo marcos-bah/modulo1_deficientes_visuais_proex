@@ -65,13 +65,18 @@ class MapController {
         await FirebaseAuth.instance.signInAnonymously();
 
         // Upload file
-        await FirebaseStorage.instance.ref('maps/$fileName').putData(fileBytes);
+        return await FirebaseStorage.instance
+            .ref('maps/$fileName')
+            .putData(fileBytes)
+            .then((t) => t.ref.getDownloadURL())
+            .whenComplete(() => isLoadingMap.value = false);
+      } else {
+        isLoadingMap.value = false;
+        return "Erro no envio do Mapa";
       }
     } catch (e) {
       isLoadingMap.value = false;
       return "Erro no envio do Mapa";
     }
-    isLoadingMap.value = false;
-    return "Sucesso no envio do Mapa";
   }
 }

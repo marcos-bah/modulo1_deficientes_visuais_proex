@@ -21,7 +21,7 @@ class AppWidget extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      initialRoute: "/view-map",
+      initialRoute: "/map",
       routes: {
         "/": (context) => CreateAccountView(),
         "/login": (context) => LoginView(),
