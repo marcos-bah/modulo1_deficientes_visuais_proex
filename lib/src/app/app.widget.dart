@@ -6,6 +6,7 @@ import 'package:modulo1_deficientes_visuais_proex/src/features/create-account/cr
 import 'package:modulo1_deficientes_visuais_proex/src/features/edit-account/edit_account.view.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/login/login.view.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/maps/map.view.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/features/maps/viewMap.view.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/organization/organization.view.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/recovery-password/recovery_password.view.dart';
 
@@ -20,7 +21,7 @@ class AppWidget extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      initialRoute: "/login",
+      initialRoute: "/view-map",
       routes: {
         "/": (context) => CreateAccountView(),
         "/login": (context) => LoginView(),
@@ -32,6 +33,7 @@ class AppWidget extends StatelessWidget {
         "/builder": (context) => BuilderView(),
         "/organization": (context) => OrganizationView(),
         "/map": (context) => MapView(),
+        "/view-map": (context) => ViewMapView(),
       },
     );
   }
