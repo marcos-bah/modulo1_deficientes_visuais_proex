@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/app/app.color.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/maps/map.controller.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
 
 class ViewMapView extends StatefulWidget {
   const ViewMapView({Key? key}) : super(key: key);
@@ -13,6 +15,10 @@ class _ViewMapViewState extends State<ViewMapView> {
   MapController controller = MapController();
   @override
   Widget build(BuildContext context) {
+    final String assetName = 'assets/flutter_logo.svg';
+    final Widget svg = SvgPicture.asset(
+    assetName,
+  );
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -91,11 +97,9 @@ class _ViewMapViewState extends State<ViewMapView> {
                 ),
               ),
               //Mapa aqui
-              Container(
-                width: double.infinity,
-                height: 250,
-                color: Colors.grey,
-              ),
+              Expanded(
+          child: svg
+        ),
             ],
           ),
         ),
