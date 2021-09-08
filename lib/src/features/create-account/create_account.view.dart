@@ -1,9 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/app/app.color.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/create-account/create_account.controller.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/features/create-account/create_account.repository.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/button_submit.widget.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/dropdown_button.widget.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/form_field.widget.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/features/shared/snackbar.message.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/features/shared/user.model.dart';
 import 'package:rx_notifier/rx_notifier.dart';
 
 class CreateAccountView extends StatefulWidget {
@@ -90,9 +95,25 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   controller.isLoading.value = true;
-
-                                  Future.delayed(Duration(seconds: 3)).then(
-                                      (value) =>
+                                  CreateAccountRepository repository =
+                                      CreateAccountRepository();
+                                  repository
+                                      .createAccount(controller.getUserModel())
+                                      .then(
+                                    (res) {
+                                      if (jsonDecode(res)["token"] != null) {
+                                        showMessageSucess(
+                                            context: context,
+                                            text: "Sucesso ao logar");
+                                        Navigator.of(context).pop();
+                                      } else {
+                                        showMessageError(
+                                          context: context,
+                                          text: "Erro ao criar conta",
+                                        );
+                                      }
+                                    },
+                                  ).whenComplete(() =>
                                           controller.isLoading.value = false);
                                 }
                               },

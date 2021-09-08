@@ -13,8 +13,8 @@ class UserModel {
     this.email = json["email"].toString();
     this.password = json["password"].toString();
     this.permission = json["permission"].toString();
-    this.id = json["id"].toString();
-    this.token = json["token"].toString();
+    this.id = json["id"] ?? '';
+    this.token = json["token"] ?? '';
   }
 
   Map<String, dynamic> toJson() {
@@ -22,9 +22,7 @@ class UserModel {
     json["name"] = this.name;
     json["email"] = this.email;
     json["password"] = this.password;
-    json["permission"] = this.permission;
-    json["id"] = this.id;
-    json["token"] = this.token;
+    json["role"] = this.permission;
     return json;
   }
 }

@@ -124,7 +124,7 @@ class _LoginViewState extends State<LoginView> {
                                         showMessageError(
                                             context: context,
                                             text:
-                                                resJson["message"].toString());
+                                                "Falha ao logar, verifique seus dados");
                                       }
                                     },
                                   ).whenComplete(

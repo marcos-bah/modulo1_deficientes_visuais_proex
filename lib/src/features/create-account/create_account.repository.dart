@@ -1,17 +1,17 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/app/app.repository.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/user.model.dart';
 
-class CreateAccountRepository {
+class CreateAccountRepository extends AppRepository {
   Dio dio = new Dio();
-
-  static final String path = 'localhost';
-  static final String query = '/api/accounts';
 
   Future<String> createAccount(UserModel userModel) async {
     try {
       return await dio
           .post(
-        path + query,
+        AppRepository.path + AppRepository.queryUser,
         data: userModel.toJson(),
       )
           .then(
@@ -20,15 +20,17 @@ class CreateAccountRepository {
         },
       );
     } on DioError catch (e) {
+      print(e);
       if (e.response != null) {
         if (e.response!.statusCode == 404) {
-          return "API Offline";
+          return jsonEncode({"code": 404, "message": "API Offline"});
         }
-        return e.response!.statusCode.toString();
+        return jsonEncode({'erro': e.response.toString()});
       }
-      return e.toString();
+      return jsonEncode({'erro': e.response.toString()});
     } catch (e) {
-      return e.toString();
+      print(e);
+      return jsonEncode({"code": 5000, "message": "Error Interno"});
     }
   }
 }

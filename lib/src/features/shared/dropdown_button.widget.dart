@@ -51,15 +51,15 @@ class _DropdownButtonWidgetState extends State<DropdownButtonWidget> {
             items: [
               DropdownMenuItem(
                 child: Text("Super"),
-                value: "super",
+                value: "SUPER",
               ),
               DropdownMenuItem(
                 child: Text("Normal"),
-                value: "normal",
+                value: "NORMAL",
               ),
               DropdownMenuItem(
                 child: Text("Funcionário"),
-                value: "func",
+                value: "FUNC",
               )
             ],
           ),

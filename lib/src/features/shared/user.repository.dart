@@ -27,10 +27,9 @@ class Repository extends AppRepository {
         if (e.response!.statusCode == 404) {
           return jsonEncode({"code": 404, "message": "API Offline"});
         }
-
-        return jsonEncode(e.response);
+        return jsonEncode({'erro': e.response.toString()});
       }
-      return jsonEncode(e.response);
+      return jsonEncode({'erro': e.response.toString()});
     } catch (e) {
       return jsonEncode({"code": 5000, "message": "Error Interno"});
     }
