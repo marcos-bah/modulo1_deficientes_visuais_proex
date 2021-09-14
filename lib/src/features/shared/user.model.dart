@@ -1,12 +1,18 @@
 class UserModel {
-  String name = "";
-  String email = "";
-  String password = "";
-  String permission = "";
-  String id = "";
-  String token = "";
+  late String name;
+  late String email;
+  late String password;
+  late String permission;
+  late String id;
+  late String token;
 
-  UserModel(this.email, this.password);
+  UserModel(
+      {this.email = "",
+      this.password = "",
+      this.name = "",
+      this.permission = "",
+      this.id = "",
+      this.token = ""});
 
   UserModel.fromJson(Map<String, dynamic> json) {
     this.name = json["name"].toString();

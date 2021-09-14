@@ -1,13 +1,13 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/app/app.color.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/app/app.repository.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/login/login.controller.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/button_submit.widget.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/form_field.widget.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/snackbar.message.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/user.model.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/user.repository.dart';
+import 'package:provider/provider.dart';
 import 'package:rx_notifier/rx_notifier.dart';
 
 class LoginView extends StatefulWidget {
@@ -18,6 +18,7 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+  late UserModel userModel;
   LoginController controller = LoginController();
   Repository repository = Repository();
   final _formKey = GlobalKey<FormState>();
@@ -25,6 +26,10 @@ class _LoginViewState extends State<LoginView> {
   @override
   void initState() {
     super.initState();
+    userModel = userModel = Provider.of<UserModel>(context, listen: false);
+    if (userModel.token != "") {
+      Navigator.of(context).pushReplacementNamed('/home');
+    }
   }
 
   @override
@@ -66,7 +71,9 @@ class _LoginViewState extends State<LoginView> {
                       return null;
                     },
                     controller: controller.emailEditingController,
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      userModel.email = value;
+                    },
                     icon: SizedBox(),
                     keyboardType: TextInputType.emailAddress,
                   ),
@@ -80,7 +87,9 @@ class _LoginViewState extends State<LoginView> {
                           return null;
                         },
                         controller: controller.passwordEditingController,
-                        onChanged: (value) {},
+                        onChanged: (value) {
+                          userModel.password = value;
+                        },
                         keyboardType: TextInputType.text,
                         obscure: !controller.getIsVisible,
                         icon: IconButton(
@@ -107,28 +116,25 @@ class _LoginViewState extends State<LoginView> {
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   controller.isLoading.value = true;
-                                  UserModel user = UserModel(
-                                      controller.emailEditingController.text,
-                                      controller
-                                          .passwordEditingController.text);
-                                  repository.login(userModel: user).then(
-                                    (res) {
-                                      Map resJson = jsonDecode(res.toString());
-
-                                      if (resJson["token"] != null) {
-                                        showMessageSucess(
-                                            context: context,
-                                            text: "Sucesso ao logar");
-                                        Navigator.pushNamed(context, "/home");
-                                      } else {
+                                  AppRepository app = AppRepository();
+                                  app
+                                      .postToken(
+                                    model: userModel,
+                                    query: AppRepository.queryLogin,
+                                  )
+                                      .then(
+                                    (value) {
+                                      if (value.contains("Erro")) {
                                         showMessageError(
-                                            context: context,
-                                            text:
-                                                "Falha ao logar, verifique seus dados");
+                                            context: context, text: value);
+                                      } else {
+                                        userModel.token = value;
+                                        Navigator.of(context)
+                                            .pushReplacementNamed('/home');
                                       }
                                     },
-                                  ).whenComplete(
-                                      () => controller.isLoading.value = false);
+                                  ).whenComplete(() =>
+                                          controller.isLoading.value = false);
                                 }
                               },
                             );
