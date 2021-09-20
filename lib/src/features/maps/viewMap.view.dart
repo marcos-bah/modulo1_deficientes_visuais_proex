@@ -1,11 +1,18 @@
-import 'package:flutter/material.dart';
-import 'package:modulo1_deficientes_visuais_proex/src/app/app.color.dart';
-import 'package:modulo1_deficientes_visuais_proex/src/features/maps/map.controller.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'dart:convert';
 
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/app/app.color.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/app/app.repository.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/features/maps/map.controller.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/features/shared/user.model.dart';
+import 'package:provider/provider.dart';
+import 'package:rx_notifier/rx_notifier.dart';
 
 class ViewMapView extends StatefulWidget {
-  const ViewMapView({Key? key}) : super(key: key);
+  final String id;
+  const ViewMapView({Key? key, required this.id}) : super(key: key);
 
   @override
   _ViewMapViewState createState() => _ViewMapViewState();
@@ -13,12 +20,45 @@ class ViewMapView extends StatefulWidget {
 
 class _ViewMapViewState extends State<ViewMapView> {
   MapController controller = MapController();
+  AppRepository appRepository = AppRepository();
+  late UserModel rootModel;
+
+  @override
+  void initState() {
+    rootModel = Provider.of<UserModel>(context, listen: false);
+    appRepository
+        .get(
+      id: widget.id,
+      query: AppRepository.queryMap,
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer ' +
+              (rootModel.token.isNotEmpty
+                  ? rootModel.token
+                  : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2FzQHVuaWZlaS5iciIsImlhdCI6MTYzMjE0MDYyMCwiZXhwIjoxNjMyMjI3MDIwLCJzdWIiOiIwZjQwYjJlMS01N2YwLTRlMTMtOTQ5ZS1mYWVkOWE1OGMxYWUifQ.vhNVgN_ByLE9RranMtSokYVy01zCTlqYzqUA23vF6j8"),
+        },
+      ),
+    )
+        .then((res) {
+      var json = jsonDecode(res);
+      if (json['id'] != null) {
+        controller.description.value = json['description'];
+        controller.descriptionEditingController.text = json['description'];
+        controller.name.value = json['name'];
+        controller.nameEditingController.text = json['name'];
+        controller.source.value = json['source'];
+        controller.sourceEditingController.text = json['source'];
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final String assetName = 'assets/flutter_logo.svg';
     final Widget svg = SvgPicture.asset(
-    assetName,
-  );
+      assetName,
+    );
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -61,13 +101,13 @@ class _ViewMapViewState extends State<ViewMapView> {
                           fontSize: 16,
                         ),
                       ),
-                      Text(
-                        controller.getName.isNotEmpty
-                            ? controller.getName
-                            : "----",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: 14,
+                      RxBuilder(
+                        builder: (context) => Text(
+                          controller.getName,
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            fontSize: 14,
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -80,13 +120,13 @@ class _ViewMapViewState extends State<ViewMapView> {
                           fontSize: 16,
                         ),
                       ),
-                      Text(
-                        controller.getDescription.isNotEmpty
-                            ? controller.getDescription
-                            : "----",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: 14,
+                      RxBuilder(
+                        builder: (context) => Text(
+                          controller.getDescription,
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            fontSize: 14,
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -97,9 +137,7 @@ class _ViewMapViewState extends State<ViewMapView> {
                 ),
               ),
               //Mapa aqui
-              Expanded(
-          child: svg
-        ),
+              Expanded(child: svg),
             ],
           ),
         ),

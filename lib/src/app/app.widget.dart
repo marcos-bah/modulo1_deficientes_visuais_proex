@@ -25,7 +25,7 @@ class AppWidget extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.green,
         ),
-        initialRoute: "/",
+        initialRoute: "/view-map",
         routes: {
           "/": (context) => LoginView(),
           "/login": (context) => LoginView(),
@@ -37,7 +37,8 @@ class AppWidget extends StatelessWidget {
           "/builder": (context) => BuilderView(),
           "/organization": (context) => OrganizationView(),
           "/map": (context) => MapView(),
-          "/view-map": (context) => ViewMapView(),
+          "/view-map": (context) =>
+              ViewMapView(id: "e721a613-7ad6-4af9-b58f-651d38bf6a0c"),
         },
       ),
     );

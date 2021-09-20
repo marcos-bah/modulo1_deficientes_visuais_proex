@@ -112,7 +112,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
 
                                   AppRepository repository = AppRepository();
                                   userModel.password = "proex123";
-                                  userModel.token = rootModel.token;
+                                  print(rootModel.token.toString() + "ddd");
 
                                   repository
                                       .post(
@@ -121,7 +121,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                                     options: Options(
                                       headers: {
                                         'Authorization':
-                                            'Bearer ' + userModel.token,
+                                            'Bearer ' + rootModel.token,
                                       },
                                     ),
                                   )

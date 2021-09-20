@@ -1,9 +1,12 @@
 import 'dart:typed_data';
 
+import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/app/app.repository.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/features/maps/map.model.dart';
 import 'package:rx_notifier/rx_notifier.dart';
 
 class MapController {
@@ -50,9 +53,8 @@ class MapController {
     return null;
   }
 
-  Future<String> uploadSource() async {
+  Future<String> uploadSource({required String token}) async {
     isLoadingMap.value = true;
-
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles();
 
@@ -68,8 +70,27 @@ class MapController {
         return await FirebaseStorage.instance
             .ref('maps/$fileName')
             .putData(fileBytes)
-            .then((t) => t.ref.getDownloadURL())
-            .whenComplete(() => isLoadingMap.value = false);
+            .then((t) async {
+          print(await t.ref.getDownloadURL());
+          AppRepository appRepository = AppRepository();
+          return await appRepository
+              .post(
+                model: MapModel(
+                  description: getDescription,
+                  name: getName,
+                  source: (await t.ref.getDownloadURL()).toString(),
+                ),
+                query: AppRepository.queryMap,
+                options: Options(
+                  headers: {
+                    'Authorization': 'Bearer ' + token,
+                  },
+                ),
+              )
+              .then((value) => value.toLowerCase().contains("erro")
+                  ? "Erro no upload"
+                  : "Sucesso no upload de mapa.");
+        }).whenComplete(() => isLoadingMap.value = false);
       } else {
         isLoadingMap.value = false;
         return "Erro no envio do Mapa";

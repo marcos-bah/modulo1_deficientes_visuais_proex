@@ -29,7 +29,7 @@ class HomeView extends StatelessWidget {
                     leading: Icon(Icons.maps_ugc),
                     title: Text("Inserir mapa"),
                     onTap: () {
-                      Navigator.of(context).pushNamed("/insert-map");
+                      Navigator.of(context).pushNamed("/map");
                     },
                   ),
                 ),

@@ -4,6 +4,8 @@ import 'package:modulo1_deficientes_visuais_proex/src/features/maps/map.controll
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/button_submit.widget.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/form_field.widget.dart';
 import 'package:modulo1_deficientes_visuais_proex/src/features/shared/snackbar.message.dart';
+import 'package:modulo1_deficientes_visuais_proex/src/features/shared/user.model.dart';
+import 'package:provider/provider.dart';
 import 'package:rx_notifier/rx_notifier.dart';
 
 class MapView extends StatefulWidget {
@@ -15,8 +17,16 @@ class MapView extends StatefulWidget {
 
 class _MapViewState extends State<MapView> {
   MapController controller = MapController();
+  late UserModel rootModel;
 
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    rootModel = Provider.of<UserModel>(context, listen: false);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -73,7 +83,9 @@ class _MapViewState extends State<MapView> {
                                   showMessageSucess(
                                       context: context,
                                       text: "Escolha o mapa para upload");
-                                  controller.uploadSource().then(
+                                  controller
+                                      .uploadSource(token: rootModel.token)
+                                      .then(
                                     (value) {
                                       if (value
                                           .toLowerCase()
@@ -81,10 +93,10 @@ class _MapViewState extends State<MapView> {
                                         showMessageError(
                                             context: context, text: value);
                                       } else {
+                                        Navigator.pop(context);
                                         showMessageSucess(
                                             context: context,
                                             text: "Sucesso no upload do mapa");
-                                        print("link: $value");
                                       }
                                       controller.isLoading.value = false;
                                     },

@@ -10,7 +10,7 @@ class UserModel {
       {this.email = "",
       this.password = "",
       this.name = "",
-      this.permission = "",
+      this.permission = "NORMAL",
       this.id = "",
       this.token = ""});
 
