@@ -26,7 +26,7 @@ class _LoginViewState extends State<LoginView> {
   @override
   void initState() {
     super.initState();
-    userModel = userModel = Provider.of<UserModel>(context, listen: false);
+    userModel = Provider.of<UserModel>(context, listen: false);
     if (userModel.token != "") {
       Navigator.of(context).pushReplacementNamed('/home');
     }

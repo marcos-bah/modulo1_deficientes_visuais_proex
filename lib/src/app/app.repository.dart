@@ -29,20 +29,23 @@ class AppRepository {
     }
   }
 
-  Future<String> post({required dynamic model, required String query}) async {
+  Future<String> post(
+      {required dynamic model, required String query, Options? options}) async {
     final String erroMessage = "Erro na consulta";
     try {
       return await dio
           .post(
-        AppRepository.path + AppRepository.queryLogin,
+        AppRepository.path + query,
         data: model.toJson(),
+        options: options,
       )
           .then(
         (res) {
-          return res.data;
+          return res.data.toString();
         },
       );
     } catch (e) {
+      print(e);
       return erroMessage;
     }
   }
