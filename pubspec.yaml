@@ -40,6 +40,9 @@ dependencies:
   provider: ^5.0.0
   file_picker: ^4.0.0
   flutter_svg: ^0.22.0
+  flutter_map: ^0.13.1
+  latlng: any
+  latlong2: ^0.8.0
 
 dev_dependencies:
   flutter_test:
