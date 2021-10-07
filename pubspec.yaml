@@ -43,6 +43,7 @@ dependencies:
   flutter_map: ^0.13.1
   latlng: any
   latlong2: ^0.8.0
+  photo_view: ^0.13.0
 
 dev_dependencies:
   flutter_test:
